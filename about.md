@@ -4,4 +4,4 @@ title: About
 permalink: /about/
 ---
 
-还是空的 哈哈哈。
+喜欢猫，喜欢妹子，喜欢哲学，喜欢故事，喜欢写代码。
