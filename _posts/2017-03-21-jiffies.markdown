@@ -1,0 +1,15 @@
+---
+layout: post
+title:  "jiffies"
+date:   2017-03-21 07:46:19 +0800
+categories: jekyll update
+---
+
+# jiffies
+linux 内核时间系统基于一个在每个时钟中断产生的时候增加的值。这个值是 `jiffies`。
+`jiffies` 是时间中断发生的次数，每次发生时间中断，这个值就会被加 1。每秒中增加 HZ 的数量。
+`HZ`，发生时间中断的频率，可以通过这样的方式查看`grep 'CONFIG_HZ=' /boot/config-$(uname -r)`。
+比如在我的系统上，返回的是 `CONFIG_HZ=250`。也就是说，我的系统，每秒产生 250 次的时间中断，那么 jiffies 每秒就增加 `250`。
+`HZ`这个值是可以配置的，配置得高的话，带来的好处是时间相关的调用会变得更精确，坏处就是，中断程序调用得更频繁，带来的消耗更大。
+
+通过 `/proc/timer_list`我们可以看到一些时间相关的信息，可以看到 `now`以及目前 `jiffies`的值。
