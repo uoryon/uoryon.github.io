@@ -1,0 +1,34 @@
+apiVersion: extensions/v1beta1
+kind: ReplicaSet
+metadata:
+  name: blog
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      blog: uoryon
+    matchExpressions:
+      - {key: blog, operator: In, values: [uoryon]}
+  template:
+    metadata:
+      labels:
+        app: blog
+        blog: uoryon
+    spec:
+      containers:
+      - name: blog
+        image: hub.c.163.com/uoryon/blog:1.0.0
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        env:
+        - name: GET_HOSTS_FROM
+          value: dns
+          # If your cluster config does not include a dns service, then to
+          # instead access environment variables to find service host
+          # info, comment out the 'value: dns' line above, and uncomment the
+          # line below.
+          # value: env
+        ports:
+        - containerPort: 4000
