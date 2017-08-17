@@ -2,7 +2,7 @@
 layout: post
 title:  "进程和线程"
 date:   2017-02-25 08:31:19 +0800
-categories: jekyll update
+categories: linux
 ---
 
 # 进程和线程

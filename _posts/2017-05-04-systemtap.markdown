@@ -2,7 +2,7 @@
 layout: post
 title:  "Systemtap 简单聊聊"
 date:   2017-05-04 22:46:19 +0800
-categories: jekyll update
+categories: linux
 ---
 # Systemtap 简单聊聊
 Systemtap 允许开发者写一些简单的脚本来观察活动着的 linux 系统。能够检查一些复杂的系统以及函数问题。

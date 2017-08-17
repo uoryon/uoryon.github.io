@@ -2,7 +2,7 @@
 layout: post
 title:  "jiffies"
 date:   2017-03-21 07:46:19 +0800
-categories: jekyll update
+categories: linux
 ---
 
 # jiffies

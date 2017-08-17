@@ -2,7 +2,7 @@
 layout: post
 title:  "学习实现 k8s TPR"
 date:   2017-06-13 11:23:02 +0800
-categories: jekyll update
+categories: k8s
 ---
 
 # 学习实现 k8s TPR
