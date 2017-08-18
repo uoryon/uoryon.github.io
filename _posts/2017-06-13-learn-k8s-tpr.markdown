@@ -20,7 +20,7 @@ github: [GitHub - uoryon/mongo-operator](https://github.com/uoryon/mongo-operato
 
 ##### 与 apiserver 通信
 与 k8s 相关的交互应该都是要从这里开始的。我使用的库是 [GitHub - kubernetes/client-go: Go client for Kubernetes.](https://github.com/kubernetes/client-go) 。
-首先需要提供 kubeconfig。`mac`本地用`qinikube` 启动的话，应该是 `~/.kube/config`。如果你的这项服务是跑在 k8s 集群里面，直接调用`k8s.io/client-go/rest.InClusterConfig`方法可以取得。`k8s.io/client-go/tools/clientcmd.BuildConfigFromFlags`也能得到 `Config`对象，将这个对象传入 `k8s.io/client-go/kubernetes.NewForConfig`就可以得到 `Clientset`了。
+首先需要提供 kubeconfig。`mac`本地用`minikube` 启动的话，应该是 `~/.kube/config`。如果你的这项服务是跑在 k8s 集群里面，直接调用`k8s.io/client-go/rest.InClusterConfig`方法可以取得。`k8s.io/client-go/tools/clientcmd.BuildConfigFromFlags`也能得到 `Config`对象，将这个对象传入 `k8s.io/client-go/kubernetes.NewForConfig`就可以得到 `Clientset`了。
 ```
 // Clientset contains the clients for groups. Each group has exactly one
 // version included in a Clientset.
