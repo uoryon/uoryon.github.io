@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Golang interface"
-date:   2017-09-13 14:15:02 +0800
+date:   2017-10-13 16:14:02 +0800
 categories: golang
 ---
 
