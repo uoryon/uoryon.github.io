@@ -1,0 +1,134 @@
+---
+layout: post
+title:  "Golang sql 的小 feature"
+date:   2017-11-03 15:31:02 +0800
+categories: golang
+---
+
+# Golang sql 的小 feature
+
+最近都是在写 cms 后端，跟之前写容器调度系统，区别还是超级大的，面向的东西不一样了。发现 cms 后端，也就是 web
+后端，还是蛮考察人的抽象能力的，可能比不上系统应用那样的性能以及效率。但是为了开发效率，以及抽象，还是很考察人的代码功底的。但是也没说意味着要牺牲性能。
+接下来进入正题好了。
+
+## db
+写 web 后端，很大几率都会与 db 交互，使用 sql。那么就会使用到 `database/sql` 这个包。可能很多开发者都倾向于使用一些 ORM。ORM 当然会省很多力气。但是掌握一些神奇的技巧的话，可以变得很优雅。
+比如，我们要写一个表，举例子通常都是
+```
+CREATE TABLE `Person` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` TEXT NOT NULL,
+  `email` TEXT NOT NULL,
+  PRIMARY KEY (`id`)
+)Engine=InnoDB DEFAULT CHARSET=utf8mb4;
+```
+
+相当简单的样子，如果只是这种程度，我们直接定义一个
+```
+type Person {
+  ID    uint64 `db:"id"`
+  Name  string `db:"name"`
+  Email string `db:"email"`
+}
+```
+即可，直接用 ORM 的一些 Get 方法，就能很轻松的处理了。不过我们不会止步于此，我们向更复杂的结构前进。倘若数据表，发生了这样的改进：
+```
+ALTER TABLE `Person` ADD COLUMN `permission` TEXT NOT NULL;
+```
+`permission`中，存储的不是普通的字符串，而是`json`。那么我们的 struct 应该如何做？变成这种吗？
+```
+type Person {
+  ID         uint64 `db:"id"`
+  Name       string `db:"name"`
+  Email      string `db:"email"`
+  Permission string `db:"permission"`
+}
+```
+然后每次输出的时候，再对 `permission` 做`json.Unmarshal`操作吗？
+
+显然不应该这样，这样复用性也不好，多加了一个复杂字段，就要如此改动，显然不可行呀。会多出很多用于数据处理的代码。很棒的是，`golang`有一些神奇的 `interface`。
+
+### Scanner
+```
+// Scanner is an interface used by Scan.
+type Scanner interface {
+	// Scan assigns a value from a database driver.
+	//
+	// The src value will be of one of the following types:
+	//
+	//    int64
+	//    float64
+	//    bool
+	//    []byte
+	//    string
+	//    time.Time
+	//    nil - for NULL values
+	//
+	// An error should be returned if the value cannot be stored
+	// without loss of information.
+	Scan(src interface{}) error
+}
+```
+这个就是`Scanner`接口了。需要实现一个 Scan。这个接口是用于从 db 读出到内存中用的，基础的数据结构，都能直接从 db 中读出来，那么复杂的结构，我们只用实现 Scan 接口，就可以工作了。
+按上面的结构举例子，我们可以实现一个结构。
+```
+type Permission struct {
+  Read  bool
+  Write bool
+}
+```
+然后我们再针对这个结构实现 Scanner 接口即可。
+```
+func (p *Permission) Scan(src interface{}) error {
+  var data []byte
+  switch src.(type) {
+  case string:
+    data = []byte(src.(string))
+  case []byte:
+    data = src.([]byte)
+  default:
+    return fmt.Errorf("Incompatible type for Permission val: %v", src)
+  }
+
+  err := json.Unmarshal(data, p)
+  if err != nil {
+    return fmt.Errorf("Permission Scan Unmarshal data: %v err: %v", data, err)
+  }
+  return nil
+}
+```
+
+代码很简单。
+
+### Valuer
+```
+// Valuer is the interface providing the Value method.
+//
+// Types implementing Valuer interface are able to convert
+// themselves to a driver Value.
+type Valuer interface {
+	// Value returns a driver Value.
+	Value() (Value, error)
+}
+```
+
+就是实现与 `Scanner` 相反的过程，这样理解应该没什么问题。
+这样，我们能够将内存中的对象，转化为数据库中存储的格式。
+针对我们的 `Permission`。
+```
+func (p Permission) Value() (driver.Value, error) {
+  b, err := json.Marshal(p)
+  if err != nil {
+    return nil, fmt.Errorf("Marshal %v err: %v", p, err)
+  }
+  return string(b), err
+}
+```
+
+这样就可以了。
+
+### 一些坑
+json 和 go 结合的话，其实有一些坑。
+1. 默认类型
+假设承接 json 的对象结构是，`map[string]interface{}`，那么可要注意 `interface{}` 了。如果原先的值是数字，那么读回来后，这个 `interface{}` 的 type 是
+`float64`。这个时候，我们选择使用`encoding/gob`就好。这个序列化的时候是保存类型的。（此处的考虑未考虑性能，只考虑可行，因为具体的性能我也没做过测试。）
