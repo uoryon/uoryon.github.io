@@ -3,6 +3,7 @@ layout: post
 title:  "Bazel with golang"
 date:   2017-09-13 14:15:02 +0800
 categories: golang
+comments: true
 ---
 
 [Bazel](https://www.bazel.build/) 的细节就不在这里说了，上方链接可以去看看，google 开源的强大的 build 工具。现在团队在使用 Bazel 来 build 项目。我也算小小体验了一下下。应该算摸清楚了在 golang 项目中的玩法。

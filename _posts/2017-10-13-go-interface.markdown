@@ -3,6 +3,7 @@ layout: post
 title:  "Golang interface"
 date:   2017-10-13 16:14:02 +0800
 categories: golang
+comments: true
 ---
 Golang 的 interface(接口) 是一个很神奇的东西，定义为：
 - 接口类型是由一组方法定义的集合

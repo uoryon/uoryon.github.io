@@ -3,6 +3,7 @@ layout: post
 title:  "谈一次事故"
 date:   2017-03-14 07:59:19 +0800
 categories: experience
+comments: true
 ---
 
 最近一件严重的事情

@@ -3,6 +3,7 @@ layout: post
 title:  "学习实现 k8s TPR"
 date:   2017-06-13 11:23:02 +0800
 categories: k8s
+comments: true
 ---
 
 总结一下写 k8s TPR 遇到的坑，以及如何写一个 TPR。

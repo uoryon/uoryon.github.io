@@ -4,6 +4,7 @@ title:  "jiffies"
 date:   2017-03-21 07:46:19 +0800
 categories: linux
 tags: "linux"
+comments: true
 ---
 
 linux 内核时间系统基于一个在每个时钟中断产生的时候增加的值。这个值是 `jiffies`。
