@@ -5,12 +5,12 @@ date:   2017-06-13 11:23:02 +0800
 categories: k8s
 ---
 
-# 学习实现 k8s TPR
 总结一下写 k8s TPR 遇到的坑，以及如何写一个 TPR。
 
 TPR = ThirdPartyResource 虽然马上就会被 deprecated 了，但是整个过程还是能有一些借鉴意义的。
 
 使用 TPR，可以在 k8s apiserver 里面注册一个资源，用户可以使用 yaml 描述这种资源。TPR 维护者可以通过 apiserver 感知到资源的创建、更新和删除。
+<!--more-->
 - - - -
 
 ### MongoOperator

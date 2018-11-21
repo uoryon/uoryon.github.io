@@ -5,11 +5,7 @@ date:   2017-09-13 14:15:02 +0800
 categories: golang
 ---
 
-## Bazel
-
 [Bazel](https://www.bazel.build/) 的细节就不在这里说了，上方链接可以去看看，google 开源的强大的 build 工具。现在团队在使用 Bazel 来 build 项目。我也算小小体验了一下下。应该算摸清楚了在 golang 项目中的玩法。
-
-## 在 Golang 上
 
 在 Golang 上，可以使用这个 [rules_go](https://github.com/bazelbuild/rules_go)。它提供了一些 golang 编译相关的方法，类似 go_library, go_test。
 通过这些方法，可以非常容易的组合我们的包，把一个包所有的文件放到一个 go_library 中，就能够通过 bazel 来编译这个包了。而且还可以通过指定，name 来表明编译出来的包，这个方式就过于自由了，

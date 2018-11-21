@@ -5,8 +5,9 @@ date:   2017-03-14 07:59:19 +0800
 categories: experience
 ---
 
-### 最近一件严重的事情
+最近一件严重的事情
 使用低版本的 go 程序，导致 sql 爆掉，api无法响应用户请求，引发血案。
+<!--more-->
 
 #### 现象
 api 核心组件，fd 大梯度上升，api 不响应。`kill -SIGQUIT <process>`杀掉程序，大量 goroutine 卡在 `database/sql.(*DB).conn`。

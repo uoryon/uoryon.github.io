@@ -3,9 +3,9 @@ layout: post
 title:  "jiffies"
 date:   2017-03-21 07:46:19 +0800
 categories: linux
+tags: "linux"
 ---
 
-# jiffies
 linux 内核时间系统基于一个在每个时钟中断产生的时候增加的值。这个值是 `jiffies`。
 `jiffies` 是时间中断发生的次数，每次发生时间中断，这个值就会被加 1。每秒中增加 HZ 的数量。
 `HZ`，发生时间中断的频率，可以通过这样的方式查看`grep 'CONFIG_HZ=' /boot/config-$(uname -r)`。

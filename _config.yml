@@ -1,33 +1,71 @@
-# Welcome to Jekyll!
 #
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely edit after that. If you find
-# yourself editing this file very often, consider using Jekyll's data files
-# feature for the data you need to update frequently.
+###################################
+# Site wide configuration
+####################################
 #
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
-
-# Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and they will be accessible
-# in the templates via {{ site.myvariable }}.
 title: Hai
-email: uoryon@gmail.com
-description: > # this means to ignore newlines until "baseurl:"
-  脚踏实地一步一步学习吧。记录一些学习上的事情。无输出，无收获。
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: uoryon
-github_username:  uoryon
-permalink: /:year/:month/:day/:title.html
+email:
+description: 脚踏实地一步一步学习吧。记录一些学习上的事情。
+url: # the base hostname & protocol for your site
+keywords: ["blog", "life", "study"]
 
-# Build settings
-markdown: kramdown
-theme: minima
-gems:
-  - jekyll-feed
-exclude:
-  - Gemfile
-  - Gemfile.lock
+#
+###################################
+# Jekyll configuration
+####################################
+#
+timezone:          Asia/Shanghai
+markdown:          kramdown
+highlighter:       rouge
+excerpt_separator: <!--more-->
+permalink:         /articles/:year/:month/:day/:title.html
+
+kramdown:
+  auto_ids: true
+  footnote_nr: 1
+  entity_output: as_char
+  toc_levels: 1..6
+  enable_coderay: false
+
+#
+###################################
+# Site Owner configuration
+####################################
+#
+owner:
+  name: uoryon
+  avatar: 123Sketchered.png
+  job: ""
+  bio: "脚踏实地一步一步学习吧。记录一些学习上的事情。"
+  email: uoryon@gmail.com
+  disqus-shortname: uoryon
+  twitter: uoryon #username
+  facebook: #username
+  google:
+    plus: #username
+    analytics:
+    verify:
+    ad-client:
+    ad-slot:
+  bing-verify:
+  github: uoryon #username
+  gitlab: #username
+  stackoverflow: #123456/username   from a "http://stackoverflow.com/users/123456/username" link
+  linkedin: #username
+  skype: #username
+  xing: #username
+  instagram: #username
+  lastfm: #username
+  tumblr: #username
+  pinterest: #username
+  foursquare: #username
+  steam: #username
+  dribbble: #username
+  youtube: #username
+  soundcloud: #username
+  weibo: #username
+  flickr: #username
+  500px: #username
+  codepen: #username
+  reddit: #username
+  telegram: #username
